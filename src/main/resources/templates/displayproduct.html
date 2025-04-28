@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Display Products</title>
+  <style>
+    body { font-family: Arial, sans-serif; }
+    .container { width: 80%; margin: 50px auto; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+    th { background-color: #4CAF50; color: white; }
+    tr:nth-child(even) { background-color: #f2f2f2; }
+    .filter-form { margin-bottom: 20px; }
+    input[type="text"] { padding: 8px; }
+    button {
+        padding: 8px 15px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    button:hover { background-color: #45a049; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>Product Catalog</h1>
+  <form class="filter-form" action="/display-products" method="get">
+    <label for="category">Filter by Category:</label>
+    <input type="text" id="category" name="category" placeholder="Enter category">
+    <button type="submit">Filter</button>
+  </form>
+  <table>
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Category</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="product : ${products}">
+      <td th:text="${product.id}"></td>
+      <td th:text="${product.name}"></td>
+      <td th:text="${product.price}"></td>
+      <td th:text="${product.category}"></td>
+    </tr>
+    <tr th:if="${products.isEmpty()}">
+      <td colspan="4">No products found</td>
+    </tr>
+    </tbody>
+  </table>
+  <a href="/">Back to Home</a>
+</div>
+</body>
+</html>
